@@ -54,6 +54,12 @@ fn main() {
     }
 
     /* Must be explicit and always provide if with a Boolean as its condition. */
+
+    function_loop();
+
+    //function_multiple_loops();
+
+    function_for_loop();
 }
 
 /* In function signatures, you must declare the type of each parameter. */
@@ -72,4 +78,53 @@ fn another_function(x: u32){
 
 fn five() -> u32 {
     return 5;
+}
+
+/* Returning values from loops */
+fn function_loop() {
+    let mut counter = 0;
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    println!("The result is {result}");
+}
+
+/* In case of multiple loops, you can label each individual loop and break them separately  */
+fn function_multiple_loops() {
+    let mut count_1 = 0;
+    'outer_loop:loop {
+        println!("Outer loop count = {count_1}");
+        let mut count_2 = 0;
+
+        loop {
+            println!("Inner loop count = {count_2}");
+            if count_2 == 1 {
+                break;
+            }
+
+            if count_1 == 2 {
+                break 'outer_loop;
+            }
+            count_2 += 1;
+        }
+        count_1 += 1;
+    }
+}
+
+fn function_for_loop() {
+    let a = [1, 2, 3, 4, 5];
+
+    for elem in a {
+        println!("elem = {elem}");
+    }
+
+    println!("Len of a = {}", a.len());
+
+    for i in (0..a.len()) {
+        println!("a[{i}] = {}", a[i]);
+    }
 }
