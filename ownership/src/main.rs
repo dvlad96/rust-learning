@@ -1,4 +1,5 @@
-use std::mem::take;
+mod part2;
+
 
 /** Ownership 
  * Rust doesn't have a garbage collector
@@ -25,8 +26,8 @@ fn main() {
     let y = x;
     println!("x = {x}, y = {y}");
 
-    let mut s1 = String::from("This is the content of string 1");
-    let mut s2 = s1; /* After the copy is done, rust considers s1 as no longer valid so it will drop it */
+    let s1 = String::from("This is the content of string 1");
+    let s2 = s1; /* After the copy is done, rust considers s1 as no longer valid so it will drop it */
 
     println!("{}", s2);
 
@@ -49,12 +50,15 @@ fn main() {
                                                 // use x afterward
 
     let s1 = gives_ownership();         // gives_ownership moves its return value into s1
+    println!("{}", s1);
 
     let s2 = String::from("hello");     // s2 comes into scope
 
     let s3 = takes_and_gives_back(s2);      // s2 is moved into
                                                             // takes_and_gives_back, which also
                                                             // moves its return value into s3
+
+    println!("{}", s3);
 
     let s1 = String::from("hello");
 
@@ -94,6 +98,8 @@ fn main() {
     
     let r3 = &mut s; // no problem
     println!("{}", r3);
+
+    part2::part_2();
 
 }   // Here, x goes out of scope, then s. But because s's value was moved, nothing
     // special happens.
